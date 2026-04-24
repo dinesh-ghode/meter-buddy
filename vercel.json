@@ -1,20 +1,9 @@
 {
   "buildCommand": "bun run build",
-  "outputDirectory": "dist",
-  "env": {
-    "NODE_ENV": "production"
-  },
   "routes": [
     {
-      "src": "/assets/(.*)",
-      "dest": "/assets/$1",
-      "headers": {
-        "cache-control": "public, max-age=31536000, immutable"
-      }
-    },
-    {
       "src": "/(.*)",
-      "dest": "/index.html"
+      "dest": "dist/server/index.js"
     }
   ]
 }
