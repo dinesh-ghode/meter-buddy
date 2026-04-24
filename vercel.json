@@ -1,14 +1,4 @@
 {
   "buildCommand": "bun run build",
-  "functions": {
-    "api/index.js": {
-      "runtime": "nodejs18.x"
-    }
-  },
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/api/index.js"
-    }
-  ]
+  "outputDirectory": "dist/client"
 }
