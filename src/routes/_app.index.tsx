@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, redirect } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { useMeters, type Meter } from "@/lib/metersStore";
 import { getSession, logout } from "@/lib/auth";
@@ -14,6 +14,12 @@ import { Plane, LogOut, Zap, CheckCircle2, RotateCcw } from "lucide-react";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/_app/")({
+  beforeLoad: async () => {
+    const session = getSession();
+    if (session?.role === "admin") {
+      throw redirect({ to: "/admin" });
+    }
+  },
   head: () => ({
     meta: [
       { title: "Take Reading — Airport Meter Reading" },

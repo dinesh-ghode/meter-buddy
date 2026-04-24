@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, redirect } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { useMeters, updateMeter, addMeter, deleteMeter, type Meter } from "@/lib/metersStore";
 import { getReadings } from "@/lib/readings";
@@ -55,6 +55,12 @@ import {
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/_app/admin")({
+  beforeLoad: async () => {
+    const session = getSession();
+    if (session?.role !== "admin") {
+      throw redirect({ to: "/" });
+    }
+  },
   head: () => ({
     meta: [
       { title: "Admin Dashboard — Airport Meter Reading" },
